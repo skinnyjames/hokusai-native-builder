@@ -1,0 +1,6 @@
+dependencies:
+  crest:
+    github: mamantoha/crest
+  http_proxy:
+    github: mamantoha/http_proxy
+    version: ">= 0.12.0"

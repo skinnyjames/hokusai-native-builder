@@ -1,0 +1,20 @@
+name: hokusai-native-builder
+version: 0.1.0
+
+authors:
+  - Zero Stars <zero@skinnyjames.net>
+
+dependencies:
+  crest:
+    github: mamantoha/crest
+    branch: master
+  barista:
+    github: skinnyjames/barista
+
+targets:
+  hokusai-native-builder:
+    main: src/hokusai_native_builder.cr
+
+crystal: '>= 1.11.2'
+
+license: MIT

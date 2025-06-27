@@ -1,0 +1,31 @@
+# NOTICE: This lockfile contains some overrides from shard.override.yml
+version: 2.0
+shards:
+  athena-clock:
+    git: https://github.com/athena-framework/clock.git
+    version: 0.2.0
+
+  athena-console:
+    git: https://github.com/athena-framework/console.git
+    version: 0.4.1
+
+  barista:
+    git: https://github.com/skinnyjames/barista.git
+    version: 0.2.1+git.commit.4442592b8600af9a671ee9c60d19a5e4bd03bcb9
+
+  crest: # Overridden
+    git: https://github.com/mamantoha/crest.git
+    version: 1.5.1
+
+  crinja:
+    git: https://github.com/straight-shoota/crinja.git
+    version: 0.8.1
+
+  http-client-digest_auth:
+    git: https://github.com/mamantoha/http-client-digest_auth.git
+    version: 0.6.0
+
+  http_proxy: # Overridden
+    git: https://github.com/mamantoha/http_proxy.git
+    version: 0.13.0
+
