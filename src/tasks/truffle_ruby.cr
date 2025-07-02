@@ -8,8 +8,9 @@ class Hokusai::Native::Tasks::TruffleRuby < Barista::Task
   def build : Nil
     version = config.graalvm_version
     architecture = arch? ? "aarch64" : "amd64"
+    os = macos? ? "macos" : "linux"
 
-    fetch("truffleruby", "https://github.com/oracle/truffleruby/releases/download/graal-#{version}/truffleruby-community-#{version}-linux-#{architecture}.tar.gz")
+    fetch("truffleruby", "https://github.com/oracle/truffleruby/releases/download/graal-#{version}/truffleruby-community-#{version}-#{os}-#{architecture}.tar.gz")
 
     command(after_script)
   end

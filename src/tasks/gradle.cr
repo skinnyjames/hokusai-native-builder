@@ -20,9 +20,6 @@ class Hokusai::Native::Tasks::Gradle < Barista::Task
     command("#{gradle} #{gradle_command}", env: env, chdir: project_dir)
   end
 
-  def ensure_ruby
-  end
-
   def project_dir
     "#{config.directory}/project"
   end
@@ -33,8 +30,9 @@ class Hokusai::Native::Tasks::Gradle < Barista::Task
 
   def env
     {
-      "JAVA_HOME" => "#{config.directory}/graalvm",
-      "GRAALVM_HOME" => "#{config.directory}/graalvm"
+      "HOKUSAI_RUBY_HOME" => "#{config.directory}/truffleruby",
+      "JAVA_HOME" => "#{config.directory}/graalvm/Contents/Home",
+      "GRAALVM_HOME" => "#{config.directory}/graalvm/Contents/Home"
     }
   end
 end

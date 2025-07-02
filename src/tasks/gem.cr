@@ -28,8 +28,8 @@ class Hokusai::Native::Tasks::Gem < Barista::Task
 
   def env
     {
-      "JAVA_HOME" => "#{config.directory}/graalvm",
-      "GRAALVM_HOME" => "#{config.directory}/graalvm"
+      "JAVA_HOME" => "#{config.directory}/graalvm/Contents/Home",
+      "GRAALVM_HOME" => "#{config.directory}/graalvm/Contents/Home"
     }
   end
 end

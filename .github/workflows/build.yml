@@ -1,0 +1,26 @@
+name: build
+env:
+  GITHUB_WORKSPACE: ${{github.workspace}}
+
+jobs:
+  native-image:
+    runs-on: ubuntu-22.04-arm
+    container:
+      image: 84codes/crystal:latest-ubuntu-22.04
+    steps:
+    - uses: actions/checkout@v3
+    - name: create builder
+      run: shards install && shards build
+    - name: build
+      run: LOG_LEVEL=debug ./bin/hokusai-native-builder setup --workers 4
+    - name: gem-install
+      run: LOG_LEVEL=debug ./bin/hokusai-native-builder gem -- "install hokusai -v 0.2.6.pre.android"
+    - name: native-build
+      run: LOG_LEVEL=debug ./bin/hokusai-native-builder native-build 
+    - uses: actions/upload-artifact@v4
+      with:
+        name: native-build
+        path: hokusai-native-build/package.tar.gz
+        overwrite: true
+
+

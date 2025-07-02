@@ -43,7 +43,7 @@ module Hokusai
           task = task_klass.new(config, **args)
 
           task.on_output do |str|
-            logger.debug { str }
+            logger.info { str }
           end
     
           task.on_error do |str|
@@ -54,7 +54,7 @@ module Hokusai
         orchestration = Barista::Orchestrator(Barista::Task).new(registry, workers: workers, filter: filter)
         
         orchestration.on_task_start do |task|
-          Barista::Log.info(task) { "Starting Build" }
+          Barista::Log.debug(task) { "Starting Build" }
         end
         
         orchestration.on_task_failed do |task, ex|
@@ -62,7 +62,7 @@ module Hokusai
         end
 
         orchestration.on_task_succeed do |task|
-          Barista::Log.info(task) { "build succeeded" }
+          Barista::Log.debug(task) { "build succeeded" }
         end
 
         orchestration.on_unblocked do |info|
@@ -71,7 +71,7 @@ module Hokusai
           Building #{info.building.join(", ")}
           Active Sequences #{info.active_sequences.map {|k,v| "{ #{k}, #{v} }"}.join(", ")}
           EOH
-          Barista::Log.info(name) { str }
+          Barista::Log.debug(name) { str }
         end
   
         orchestration.execute
@@ -87,4 +87,6 @@ console = ACON::Application.new("hokusai-native-builder")
 console.add(Hokusai::Native::Commands::Setup.new)
 console.add(Hokusai::Native::Commands::Gem.new)
 console.add(Hokusai::Native::Commands::Gradle.new)
+console.add(Hokusai::Native::Commands::NativeImage.new)
+
 console.run
