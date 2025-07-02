@@ -10,6 +10,8 @@ jobs:
       image: 84codes/crystal:latest-ubuntu-22.04
     steps:
     - uses: actions/checkout@v3
+    - name: ppa
+      run: add-apt-repository ppa:cwchien/gradle
     - name: deps
       run: apt update -y && apt install -y cmake gradle
     - name: create builder
