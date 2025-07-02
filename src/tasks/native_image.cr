@@ -23,9 +23,9 @@ class Hokusai::Native::Tasks::NativeImage < Barista::Task
 
   def build : Nil
     # run gradle native build
-    command("gradle -v", env: env, chdir: "#{config.directory}/project")
-    command("gradle wrapper --gradle-version 8.8", env: env, chdir: "#{config.directory}/project")
-    command("gradle nativeCompile --debug", env: env, chdir: "#{config.directory}/project")
+    command("gradle wrapper", env: env, chdir: "#{config.directory}/project")
+    command("./gradlew wrapper --gradle-version 8.8", env: env, chdir: "#{config.directory}/project")
+    command("./gradlew nativeCompile --debug", env: env, chdir: "#{config.directory}/project")
     
     # rename library to "libhokusai-native"
 
