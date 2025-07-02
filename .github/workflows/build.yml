@@ -10,6 +10,8 @@ jobs:
       image: 84codes/crystal:latest-ubuntu-22.04
     steps:
     - uses: actions/checkout@v3
+    - name: deps
+      run: apt install -y cmake
     - name: create builder
       run: shards install && shards build
     - name: build
