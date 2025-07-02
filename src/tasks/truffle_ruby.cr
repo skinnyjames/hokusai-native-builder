@@ -6,7 +6,7 @@ class Hokusai::Native::Tasks::TruffleRuby < Barista::Task
   nametag "ruby"
 
   def arm?
-    kernel.machine == "x86_64" ? false : true
+    ENV["RUNNER_ARCH"] == "x64" ? false : true
   end
 
   def build : Nil
