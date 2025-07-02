@@ -17,19 +17,16 @@ class Hokusai::Native::Tasks::Gradle < Barista::Task
   end
 
   def build : Nil
-    command("#{gradle} #{gradle_command}", env: env, chdir: project_dir)
+    command("gradle #{gradle_command}", env: env, chdir: project_dir)
   end
 
   def project_dir
     "#{config.directory}/project"
   end
 
-  def gradle
-    "#{config.directory}/project/gradlew"
-  end
-
   def env
     {
+      "PATH" => "#{ENV["PATH"]}:#{config.directory}/gradle/bin",
       "HOKUSAI_RUBY_HOME" => "#{config.directory}/truffleruby",
       "JAVA_HOME" => "#{config.directory}/graalvm/Contents/Home",
       "GRAALVM_HOME" => "#{config.directory}/graalvm/Contents/Home"

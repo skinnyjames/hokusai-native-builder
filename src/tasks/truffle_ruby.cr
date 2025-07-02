@@ -6,7 +6,14 @@ class Hokusai::Native::Tasks::TruffleRuby < Barista::Task
   nametag "ruby"
 
   def arm?
-    ENV["RUNNER_ARCH"] == "x64" ? false : true
+    case ENV["RUNNER_ARCH"]?
+    when .nil?
+      false
+    when "x64"
+      false
+    else
+      true
+    end
   end
 
   def build : Nil

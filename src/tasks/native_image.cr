@@ -23,9 +23,7 @@ class Hokusai::Native::Tasks::NativeImage < Barista::Task
 
   def build : Nil
     # run gradle native build
-    command("gradle wrapper", env: env, chdir: "#{config.directory}/project")
-    command("./gradlew wrapper --gradle-version 8.8", env: env, chdir: "#{config.directory}/project")
-    command("./gradlew nativeCompile --debug", env: env, chdir: "#{config.directory}/project")
+    command("gradle nativeCompile --debug", env: env, chdir: "#{config.directory}/project")
     
     # rename library to "libhokusai-native"
 
@@ -41,6 +39,7 @@ class Hokusai::Native::Tasks::NativeImage < Barista::Task
 
   def env
     {
+      "PATH" => "#{ENV["PATH"]}:#{config.directory}/gradle/bin",
       "HOKUSAI_RUBY_HOME" => "#{config.directory}/truffleruby",
       "JAVA_HOME" => macos? ? "#{config.directory}/graalvm/Contents/Home" : "#{config.directory}/graalvm",
       "GRAALVM_HOME" => macos? ? "#{config.directory}/graalvm/Contents/Home" : "#{config.directory}/graalvm"
