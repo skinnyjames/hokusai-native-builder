@@ -11,7 +11,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: deps
-      run: apt update -y && apt install -y cmake && snap install gradle --classic
+      run: apt update -y && apt install -y cmake snapd && snap install gradle --classic
     - name: create builder
       run: shards install && shards build
     - name: build
