@@ -40,8 +40,8 @@ class Hokusai::Native::Tasks::NativeImage < Barista::Task
   def env
     {
       "HOKUSAI_RUBY_HOME" => "#{config.directory}/truffleruby",
-      "JAVA_HOME" => "#{config.directory}/graalvm/Contents/Home",
-      "GRAALVM_HOME" => "#{config.directory}/graalvm/Contents/Home"
+      "JAVA_HOME" => macos? ? "#{config.directory}/graalvm/Contents/Home" : "#{config.directory}/graalvm"
+      "GRAALVM_HOME" => macos? ? "#{config.directory}/graalvm/Contents/Home" : "#{config.directory}/graalvm"
     }
   end
 end
