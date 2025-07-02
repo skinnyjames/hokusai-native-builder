@@ -19,6 +19,7 @@ class Hokusai::Native::Tasks::Gem < Barista::Task
   def build : Nil
     raise "need gem command" if gem_command.nil?
 
+    command("ls #{config.directory}")
     command("#{gem} #{gem_command}", env: env)
   end
 
