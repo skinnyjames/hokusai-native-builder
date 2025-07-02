@@ -15,7 +15,7 @@ jobs:
     - name: build
       run: LOG_LEVEL=debug ./bin/hokusai-native-builder setup --workers 4
     - name: gem-install
-      run: LOG_LEVEL=debug ./bin/hokusai-native-builder gem -- "install hokusai -v 0.2.6.pre.android"
+      run: LOG_LEVEL=debug ./bin/hokusai-native-builder gem -- "install hokusai-zero -v 0.2.6.pre.android"
     - name: native-build
       run: LOG_LEVEL=debug ./bin/hokusai-native-builder native-build 
     - uses: actions/upload-artifact@v4
