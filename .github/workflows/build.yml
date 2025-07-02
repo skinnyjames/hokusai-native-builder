@@ -1,7 +1,8 @@
 name: build
 env:
   GITHUB_WORKSPACE: ${{github.workspace}}
-
+on: 
+  workflow_dispatch
 jobs:
   native-image:
     runs-on: ubuntu-22.04-arm
