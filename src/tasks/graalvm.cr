@@ -6,7 +6,7 @@ class Hokusai::Native::Tasks::Graalvm < Barista::Task
   nametag "graalvm"
 
   def arm?
-    kernel.machine = "x86_64" ? false : true
+    kernel.machine == "x86_64" ? false : true
   end
 
   def build : Nil
