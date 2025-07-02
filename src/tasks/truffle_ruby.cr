@@ -4,10 +4,14 @@ class Hokusai::Native::Tasks::TruffleRuby < Barista::Task
   include Hokusai::Native::Task
 
   nametag "ruby"
+  
+  def arm?
+    kernel.machine = "x86_64" ? false : true
+  end
 
   def build : Nil
     version = config.graalvm_version
-    architecture = arch? ? "aarch64" : "amd64"
+    architecture = arm? ? "aarch64" : "amd64"
     os = macos? ? "macos" : "linux"
 
     fetch("truffleruby", "https://github.com/oracle/truffleruby/releases/download/graal-#{version}/truffleruby-community-#{version}-#{os}-#{architecture}.tar.gz")
