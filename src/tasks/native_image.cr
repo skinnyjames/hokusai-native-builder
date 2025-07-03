@@ -26,9 +26,9 @@ class Hokusai::Native::Tasks::NativeImage < Barista::Task
   end
 
   def build : Nil
-    command("ls #{android_home}/ndk/#{ndk_version}/toolchains/llvm/prebuilt/")
+    # command("ls #{android_home}/ndk/#{ndk_version}/toolchains/llvm/prebuilt/")
 
-    ensure_clang_script
+    # ensure_clang_script
 
     # run gradle native build
     command("gradle nativeCompile --debug", env: env, chdir: "#{config.directory}/project")
@@ -45,9 +45,9 @@ class Hokusai::Native::Tasks::NativeImage < Barista::Task
 
   def env
     {
-      "HOKUSAI_NATIVE_CLANG" => "#{config.directory}/bin/clang",
+      # "HOKUSAI_NATIVE_CLANG" => "#{config.directory}/bin/clang",
       "ANDROID_HOME" => android_home,
-      "PATH" => "#{config.directory}/gradle/bin:#{ENV["PATH"]}",
+      "PATH" => "#{ENV["PATH"]}:#{config.directory}/gradle/bin",
       "HOKUSAI_RUBY_HOME" => "#{config.directory}/truffleruby",
       "JAVA_HOME" => macos? ? "#{config.directory}/graalvm/Contents/Home" : "#{config.directory}/graalvm",
       "GRAALVM_HOME" => macos? ? "#{config.directory}/graalvm/Contents/Home" : "#{config.directory}/graalvm"
