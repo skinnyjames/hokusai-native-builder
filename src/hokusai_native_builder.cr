@@ -49,7 +49,6 @@ module Hokusai
       end
 
       def arm?
-        return false
         case ENV["RUNNER_ARCH"]?
         when .nil?
           false

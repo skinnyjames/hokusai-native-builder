@@ -7,17 +7,6 @@ class Hokusai::Native::Tasks::TruffleRuby < Barista::Task
 
   dependency Android
 
-  def arm?
-    case ENV["RUNNER_ARCH"]?
-    when .nil?
-      false
-    when "x64"
-      false
-    else
-      true
-    end
-  end
-
   def build : Nil
     ensure_clang_script
 

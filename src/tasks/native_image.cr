@@ -38,7 +38,7 @@ class Hokusai::Native::Tasks::NativeImage < Barista::Task
 
     mkdir("#{config.directory}/project/build/native/nativeCompile/truffle", parents: true)
     # sync truffle installation
-    sync("#{config.directory}/truffleruby", "#{config.directory}/project/build/native/nativeCompile/truffle")
+    # sync("#{config.directory}/truffleruby", "#{config.directory}/project/build/native/nativeCompile/truffle")
     # package contents
     command("tar -czvf #{config.directory}/package.tar.gz #{config.directory}/project/build/native/nativeCompile")
   end
@@ -47,7 +47,7 @@ class Hokusai::Native::Tasks::NativeImage < Barista::Task
     {
       "HOKUSAI_NATIVE_CLANG" => "#{config.directory}/bin/clang",
       "ANDROID_HOME" => android_home,
-      "PATH" => "#{config.directory}/bin:#{config.directory}/gradle/bin:#{ENV["PATH"]}",
+      "PATH" => "#{config.directory}/gradle/bin:#{ENV["PATH"]}",
       "HOKUSAI_RUBY_HOME" => "#{config.directory}/truffleruby",
       "JAVA_HOME" => macos? ? "#{config.directory}/graalvm/Contents/Home" : "#{config.directory}/graalvm",
       "GRAALVM_HOME" => macos? ? "#{config.directory}/graalvm/Contents/Home" : "#{config.directory}/graalvm"

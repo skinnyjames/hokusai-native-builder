@@ -5,23 +5,12 @@ class Hokusai::Native::Tasks::Graalvm < Barista::Task
 
   nametag "graalvm"
 
-  def arm?
-    case ENV["RUNNER_ARCH"]?
-    when .nil?
-      false
-    when "x64"
-      false
-    else
-      true
-    end
-  end
-
   def build : Nil  
     if macos?
-      architecture = "x64" #arm? ? "aarch64" : "x64"
+      architecture = arm? ? "aarch64" : "x64"
       os = "macos"
     else 
-      architecture = "x64" #arm? ? "aarch64" : "x64"
+      architecture = arm? ? "aarch64" : "x64"
       os = "linux"
     end
 
