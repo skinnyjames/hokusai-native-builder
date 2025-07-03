@@ -1,6 +1,7 @@
 @[Barista::BelongsTo(Hokusai::Native::Builder)]
 class Hokusai::Native::Tasks::Gem < Barista::Task
   include_behavior Software
+  include Hokusai::Native::Task
 
   nametag "gem"
 
@@ -13,10 +14,14 @@ class Hokusai::Native::Tasks::Gem < Barista::Task
       @gem_command = command
     end
 
-    super()
+    super(config)
   end
 
   def build : Nil
+    ensure_clang_script
+
+    command("which gcc", env: env)
+
     raise "need gem command" if gem_command.nil?
 
     command("ls #{config.directory}")
@@ -29,6 +34,7 @@ class Hokusai::Native::Tasks::Gem < Barista::Task
 
   def env
     {
+      "PATH" => "#{config.directory}/bin:#{ENV["PATH"]}",
       "JAVA_HOME" => "#{config.directory}/graalvm/Contents/Home",
       "GRAALVM_HOME" => "#{config.directory}/graalvm/Contents/Home"
     }

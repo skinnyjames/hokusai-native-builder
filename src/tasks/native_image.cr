@@ -43,34 +43,11 @@ class Hokusai::Native::Tasks::NativeImage < Barista::Task
     command("tar -czvf #{config.directory}/package.tar.gz #{config.directory}/project/build/native/nativeCompile")
   end
 
-  def clang
-    os = macos? ? "darwin" : "linux"
-    ar = "x86_64" # bug in android tools arm? ? "aarch64" : "x86_64"
-
-    "#{android_home}/ndk/#{ndk_version}/toolchains/llvm/prebuilt/#{os}-#{ar}/bin/clang"
-  end
-
-  def ensure_clang_script
-    os = macos? ? "darwin" : "linux"
-    ar = "x86_64" # bug in android tools arm? ? "aarch64" : "x86_64"
-    str = <<-EOF
-    #!/usr/bin/env sh
-
-    #{clang} --target=aarch64-linux-android35 -I#{android_home}/ndk/#{ndk_version}/toolchains/llvm/#{os}-#{ar}/sysroot/usr/include "$@"
-    EOF
-
-    block do
-      File.write("#{config.directory}/project/clang", str)
-    end
-
-    command("chmod 755 #{config.directory}/project/clang")
-  end
-
   def env
     {
-      "HOKUSAI_NATIVE_CLANG" => "#{config.directory}/project/clang",
+      "HOKUSAI_NATIVE_CLANG" => "#{config.directory}/bin/clang",
       "ANDROID_HOME" => android_home,
-      "PATH" => "#{ENV["PATH"]}:#{config.directory}/gradle/bin",
+      "PATH" => "#{config.directory}/bin:#{config.directory}/gradle/bin:#{ENV["PATH"]}",
       "HOKUSAI_RUBY_HOME" => "#{config.directory}/truffleruby",
       "JAVA_HOME" => macos? ? "#{config.directory}/graalvm/Contents/Home" : "#{config.directory}/graalvm",
       "GRAALVM_HOME" => macos? ? "#{config.directory}/graalvm/Contents/Home" : "#{config.directory}/graalvm"

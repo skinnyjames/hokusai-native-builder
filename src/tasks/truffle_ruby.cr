@@ -5,6 +5,8 @@ class Hokusai::Native::Tasks::TruffleRuby < Barista::Task
 
   nametag "ruby"
 
+  dependency Android
+
   def arm?
     case ENV["RUNNER_ARCH"]?
     when .nil?
@@ -23,10 +25,16 @@ class Hokusai::Native::Tasks::TruffleRuby < Barista::Task
 
     fetch("truffleruby", "https://github.com/oracle/truffleruby/releases/download/graal-#{version}/truffleruby-community-#{version}-#{os}-#{architecture}.tar.gz")
 
-    command(after_script)
+    command(after_script, env: env)
   end
 
   def after_script
     "#{config.directory}/truffleruby/lib/truffle/post_install_hook.sh"
+  end
+  
+  def env
+    {
+      "PATH" => "#{config.directory}/bin:#{ENV["PATH"]}"
+    }
   end
 end

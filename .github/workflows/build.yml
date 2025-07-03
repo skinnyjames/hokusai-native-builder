@@ -5,7 +5,7 @@ on:
   workflow_dispatch
 jobs:
   native-image:
-    runs-on: ubuntu-22.04-arm
+    runs-on: ubuntu-22.04
     container:
       image: 84codes/crystal:latest-ubuntu-22.04
     steps:
