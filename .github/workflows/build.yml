@@ -16,8 +16,8 @@ jobs:
       run: shards install && shards build
     - name: build
       run: LOG_LEVEL=debug ./bin/hokusai-native-builder setup --workers 4
-    - name: gem-install
-      run: LOG_LEVEL=debug ./bin/hokusai-native-builder gem -- "install hokusai-zero -v 0.2.6.pre.android"
+    # - name: gem-install
+    #   run: LOG_LEVEL=debug ./bin/hokusai-native-builder gem -- "install hokusai-zero -v 0.2.6.pre.android"
     - name: native-build
       run: LOG_LEVEL=debug ./bin/hokusai-native-builder native-image 
     - uses: actions/upload-artifact@v4

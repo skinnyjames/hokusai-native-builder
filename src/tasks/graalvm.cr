@@ -18,10 +18,10 @@ class Hokusai::Native::Tasks::Graalvm < Barista::Task
 
   def build : Nil  
     if macos?
-      architecture = arm? ? "aarch64" : "x64"
+      architecture = "x64" #arm? ? "aarch64" : "x64"
       os = "macos"
     else 
-      architecture = arm? ? "aarch64" : "x64"
+      architecture = "x64" #arm? ? "aarch64" : "x64"
       os = "linux"
     end
 
