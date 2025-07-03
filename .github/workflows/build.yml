@@ -11,10 +11,10 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: deps
-      run: apt update -y && apt install -y cmake wget patchelf
+      run: apt update -y && apt install -y cmake wget clang
     - name: create builder
       run: shards install && shards build
-    - name: build
+    - name: setup
       run: LOG_LEVEL=debug ./bin/hokusai-native-builder setup --workers 4
     # - name: gem-install
     #   run: LOG_LEVEL=debug ./bin/hokusai-native-builder gem -- "install hokusai-zero -v 0.2.6.pre.android"
