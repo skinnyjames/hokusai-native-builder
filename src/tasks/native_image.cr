@@ -32,7 +32,7 @@ class Hokusai::Native::Tasks::NativeImage < Barista::Task
       # prepare for android integration
       command("ldd #{libpath}")
       # patch elf
-      command("patchelf --replace-needed libz.so.1 libz.so #{libpath}")
+      command("patchelf --replace-needed libz.so.1 /system/lib64/libz.so #{libpath}")
     end
     # rename library to "libhokusai-native"
 
