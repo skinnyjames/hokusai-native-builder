@@ -26,7 +26,7 @@ module Hokusai::Native::Commands
       end
 
       begin
-        Hokusai::Native::Builder.new(config).build(workers: workers, filter: ["graalvm", "project", "ruby", "gradle-download", "android"])
+        Hokusai::Native::Builder.new(config).build(workers: workers, filter: ["graalvm", "project", "gradle-download", "android"])
       rescue ex
         output.puts("<error>Build failed: #{ex.message}</error>")
       end
