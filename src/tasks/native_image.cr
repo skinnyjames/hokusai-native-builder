@@ -21,11 +21,21 @@ class Hokusai::Native::Tasks::NativeImage < Barista::Task
     "#{config.directory}/project/build/native/nativeCompile/resources/ruby/ruby-home/lib/mri"
   end
 
+  def libpath
+    "#{config.directory}/project/build/native/nativeCompile/hokusai-native.so"
+  end
+
   def build : Nil
     # run gradle native build
     command("gradle nativeCompile --debug", env: env, chdir: "#{config.directory}/project")
-    
+    unless macos?
+      # prepare for android integration
+      command("ldd #{libpath}")
+      # patch elf
+      command("patchelf --replace-needed libz.so.1 libz.so #{libpath}")
+    end
     # rename library to "libhokusai-native"
+
 
     # copy openssl.so
     copy(openssl_path, target_openssl_path)
