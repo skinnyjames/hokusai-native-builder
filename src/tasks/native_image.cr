@@ -26,6 +26,8 @@ class Hokusai::Native::Tasks::NativeImage < Barista::Task
   end
 
   def build : Nil
+    command("ls #{android_home}/ndk/#{ndk_version}/toolchains/llvm/prebuilt/")
+
     ensure_clang_script
 
     # run gradle native build
