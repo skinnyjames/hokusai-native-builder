@@ -7,6 +7,26 @@ module Hokusai
     module Task
       getter :config
 
+      def android_home
+        # "/Users/skinnyjames/Library/Android/sdk"
+        "#{config.directory}/android-sdk"
+      end
+
+      def ndk_version
+        "29.0.13113456"
+      end
+
+      def arm?
+        case ENV["RUNNER_ARCH"]?
+        when .nil?
+          false
+        when "x64"
+          false
+        else
+          true
+        end
+      end
+
       def initialize(@config : Hokusai::Native::Config, **args)
         super()
       end
