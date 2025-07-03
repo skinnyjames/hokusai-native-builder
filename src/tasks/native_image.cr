@@ -45,14 +45,14 @@ class Hokusai::Native::Tasks::NativeImage < Barista::Task
 
   def clang
     os = macos? ? "darwin" : "linux"
-    ar = arm? ? "aarch64" : "x86_64"
+    ar = "x86_64" # bug in android tools arm? ? "aarch64" : "x86_64"
 
     "#{android_home}/ndk/#{ndk_version}/toolchains/llvm/prebuilt/#{os}-#{ar}/bin/clang"
   end
 
   def ensure_clang_script
     os = macos? ? "darwin" : "linux"
-    ar = arm? ? "aarch64" : "x86_64"
+    ar = "x86_64" # bug in android tools arm? ? "aarch64" : "x86_64"
     str = <<-EOF
     #!/usr/bin/env sh
 
