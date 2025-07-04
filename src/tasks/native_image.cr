@@ -56,15 +56,15 @@ class Hokusai::Native::Tasks::NativeImage < Barista::Task
 
     # # run gradle native build
     command("gradle nativeCompile", env: env, chdir: "#{config.directory}/project")
-
+    command("cp #{config.directory}/project/tmp/*/libhokusai-native.o ##{config.directory}/project/build/native/nativeCompile/.")
     # # copy openssl.so
     # copy(openssl_path, target_openssl_path)
 
-    # mkdir("#{config.directory}/project/build/native/nativeCompile/truffle", parents: true)
+    mkdir("#{config.directory}/project/build/native/nativeCompile/truffle", parents: true)
     # # sync truffle installation
-    # # sync("#{config.directory}/truffleruby", "#{config.directory}/project/build/native/nativeCompile/truffle")
+    sync("#{config.directory}/truffleruby", "#{config.directory}/project/build/native/nativeCompile/truffle")
     # # package contents
-    # command("tar -czvf #{config.directory}/package.tar.gz #{config.directory}/project/build/native/nativeCompile")
+    command("tar -czvf #{config.directory}/package.tar.gz #{config.directory}/project/build/native/nativeCompile")
   end
 
   def resource_dir
