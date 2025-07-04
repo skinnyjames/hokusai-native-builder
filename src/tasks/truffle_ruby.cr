@@ -15,18 +15,12 @@ class Hokusai::Native::Tasks::TruffleRuby < Barista::Task
     fetch("truffleruby", "https://github.com/oracle/truffleruby/releases/download/graal-#{version}/truffleruby-community-#{version}-#{os}-#{architecture}.tar.gz")
 
     command("ls #{config.directory}/bin")
-    command("which gcc", env: env)
+    command("which gcc")
 
     command(after_script)
   end
 
   def after_script
     "#{config.directory}/truffleruby/lib/truffle/post_install_hook.sh"
-  end
-  
-  def env
-    {
-      "PATH" => "#{config.directory}/bin:#{ENV["PATH"]}"
-    }
   end
 end
