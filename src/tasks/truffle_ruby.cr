@@ -6,7 +6,7 @@ class Hokusai::Native::Tasks::TruffleRuby < Barista::Task
   nametag "ruby"
 
   def build : Nil
-    ensure_clang_script
+    #ensure_clang_script
 
     version = config.graalvm_version
     architecture = arm? ? "aarch64" : "amd64"
@@ -17,7 +17,7 @@ class Hokusai::Native::Tasks::TruffleRuby < Barista::Task
     command("ls #{config.directory}/bin")
     command("which gcc", env: env)
 
-    command(after_script, env: env)
+    command(after_script)
   end
 
   def after_script
