@@ -56,7 +56,7 @@ class Hokusai::Native::Tasks::NativeImage < Barista::Task
 
     # # run gradle native build
     command("gradle nativeCompile", env: env, chdir: "#{config.directory}/project")
-    command("cp #{config.directory}/project/tmp/*/libhokusai-native.o ##{config.directory}/project/build/native/nativeCompile/.")
+    command("cp #{config.directory}/project/tmp/*/libhokusai-native.o #{config.directory}/project/build/native/nativeCompile/.")
     # # copy openssl.so
     # copy(openssl_path, target_openssl_path)
 
