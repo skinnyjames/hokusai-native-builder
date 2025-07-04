@@ -13,36 +13,36 @@ class Hokusai::Native::Tasks::NativeImage < Barista::Task
     macos? ? "bundle" : "so"
   end
 
-  def openssl_path
-    "#{config.directory}/truffleruby/src/main/c/openssl/openssl.#{ext}"
-  end
+  # def openssl_path
+  #   "#{config.directory}/truffleruby/src/main/c/openssl/openssl.#{ext}"
+  # end
 
-  def target_openssl_path
-    "#{config.directory}/project/build/native/nativeCompile/resources/ruby/ruby-home/lib/mri"
-  end
+  # def target_openssl_path
+  #   "#{config.directory}/project/build/native/nativeCompile/resources/ruby/ruby-home/lib/mri"
+  # end
 
-  def libpath
-    "#{config.directory}/project/build/native/nativeCompile/hokusai-native.so"
-  end
+  # def libpath
+  #   "#{config.directory}/project/build/native/nativeCompile/hokusai-native.so"
+  # end
 
-  def generate_queries
-    mkdir("#{ndk_path}/sysroot/usr/include/asm", parents: true)
-    sync("#{ndk_path}/sysroot/usr/include/aarch64-linux-android/asm", "#{ndk_path}/sysroot/usr/include/asm")
+  # def generate_queries
+  #   mkdir("#{ndk_path}/sysroot/usr/include/asm", parents: true)
+  #   sync("#{ndk_path}/sysroot/usr/include/aarch64-linux-android/asm", "#{ndk_path}/sysroot/usr/include/asm")
 
-    # command("gradle clean", env: env, chdir: "#{config.directory}/project")
-    # generate the queries
-    # command("gradle --settings-file=query-code.gradle nativeCompile", env: env, chdir: "#{config.directory}/project")
+  #   # command("gradle clean", env: env, chdir: "#{config.directory}/project")
+  #   # generate the queries
+  #   # command("gradle --settings-file=query-code.gradle nativeCompile", env: env, chdir: "#{config.directory}/project")
 
-    Dir.children(query_dir).each do |file|
-      env["LIBRARY_PATH"] = ""
-      env["LD_LIBRARY_PATH"] = ""
-      command("gcc #{file} #{includes_paths} -o generate && chmod 775 generate && ./generate > ../cap/#{file.gsub(/c$/, "cap")}", env: env, chdir: query_dir)
-    end
-  end
+  #   Dir.children(query_dir).each do |file|
+  #     env["LIBRARY_PATH"] = ""
+  #     env["LD_LIBRARY_PATH"] = ""
+  #     command("gcc #{file} #{includes_paths} -o generate && chmod 775 generate && ./generate > ../cap/#{file.gsub(/c$/, "cap")}", env: env, chdir: query_dir)
+  #   end
+  # end
 
-  def includes_paths
-    "-I#{ndk_path}/sysroot/usr/include -I#{graalvm_home}/lib/svm/macros/truffle-svm/builder/include"
-  end
+  # def includes_paths
+  #   "-I#{ndk_path}/sysroot/usr/include -I#{graalvm_home}/lib/svm/macros/truffle-svm/builder/include"
+  # end
 
   def graalvm_home
     "#{config.directory}/graalvm/Contents/Home"
@@ -67,17 +67,17 @@ class Hokusai::Native::Tasks::NativeImage < Barista::Task
     command("tar -czvf #{config.directory}/package.tar.gz #{config.directory}/project/build/native/nativeCompile")
   end
 
-  def resource_dir
-    "#{config.directory}/project/build-resources"
-  end
+  # def resource_dir
+  #   "#{config.directory}/project/build-resources"
+  # end
 
-  def cap_dir
-    "#{resource_dir}/cap"
-  end
+  # def cap_dir
+  #   "#{resource_dir}/cap"
+  # end
 
-  def query_dir
-    "#{resource_dir}/query"
-  end
+  # def query_dir
+  #   "#{resource_dir}/query"
+  # end
 
   # def generate_queries_command
   #   String.build do |io|
@@ -113,8 +113,6 @@ class Hokusai::Native::Tasks::NativeImage < Barista::Task
 
   def env
     {
-      # "HOKUSAI_NATIVE_CLANG" => "#{config.directory}/bin/clang",
-      # "ANDROID_HOME" => android_home,
       "PATH" => "#{ENV["PATH"]}:#{config.directory}/gradle/bin",
       "HOKUSAI_RUBY_HOME" => "#{config.directory}/truffleruby",
       "JAVA_HOME" => macos? ? "#{config.directory}/graalvm/Contents/Home" : "#{config.directory}/graalvm",

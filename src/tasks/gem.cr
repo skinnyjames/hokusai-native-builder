@@ -18,11 +18,8 @@ class Hokusai::Native::Tasks::Gem < Barista::Task
   end
 
   def build : Nil
-    command("which gcc", env: env)
-
     raise "need gem command" if gem_command.nil?
 
-    command("ls #{config.directory}")
     command("#{gem} #{gem_command}", env: env)
   end
 

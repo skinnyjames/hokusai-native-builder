@@ -6,16 +6,11 @@ class Hokusai::Native::Tasks::TruffleRuby < Barista::Task
   nametag "ruby"
 
   def build : Nil
-    #ensure_clang_script
-
     version = config.graalvm_version
     architecture = arm? ? "aarch64" : "amd64"
     os = macos? ? "macos" : "linux"
 
     fetch("truffleruby", "https://github.com/oracle/truffleruby/releases/download/graal-#{version}/truffleruby-community-#{version}-#{os}-#{architecture}.tar.gz")
-
-    command("ls #{config.directory}/bin")
-    command("which gcc")
 
     command(after_script)
   end
