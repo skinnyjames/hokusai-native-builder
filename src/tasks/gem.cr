@@ -18,8 +18,6 @@ class Hokusai::Native::Tasks::Gem < Barista::Task
   end
 
   def build : Nil
-    ensure_clang_script
-
     command("which gcc", env: env)
 
     raise "need gem command" if gem_command.nil?
@@ -34,7 +32,6 @@ class Hokusai::Native::Tasks::Gem < Barista::Task
 
   def env
     {
-      "PATH" => "#{config.directory}/bin:#{ENV["PATH"]}",
       "JAVA_HOME" => "#{config.directory}/graalvm/Contents/Home",
       "GRAALVM_HOME" => "#{config.directory}/graalvm/Contents/Home"
     }
