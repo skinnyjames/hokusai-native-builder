@@ -12,12 +12,19 @@ module Hokusai
         "#{config.directory}/android-sdk"
       end
 
-      def clang
+      def graalvm_base_path
+         macos? ? "#{config.directory}/graalvm/Contents/Home" : "#{config.directory}/graalvm"
+      end
+
+      def ndk_path
         os = macos? ? "darwin" : "linux"
         # android doesn't release ndk builds for arm...
         ar = "x86_64" #arm? ? "aarch64" : "x86_64"
+        "#{android_home}/ndk/#{ndk_version}/toolchains/llvm/prebuilt/#{os}-#{ar}"
+      end
 
-        "#{android_home}/ndk/#{ndk_version}/toolchains/llvm/prebuilt/#{os}-#{ar}/bin/clang"
+      def clang
+        "#{ndk_path}/bin/clang"
       end
 
       def ensure_clang_script

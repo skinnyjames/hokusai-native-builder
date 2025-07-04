@@ -5,8 +5,6 @@ class Hokusai::Native::Tasks::TruffleRuby < Barista::Task
 
   nametag "ruby"
 
-  dependency Android
-
   def build : Nil
     ensure_clang_script
 

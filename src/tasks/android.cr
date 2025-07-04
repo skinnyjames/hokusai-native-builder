@@ -17,7 +17,6 @@ class Hokusai::Native::Tasks::Android < Barista::Task
     mkdir(android_home, parents: true)
     # Install android cli
     fetch("android-tools", "https://file.skinnyjames.net/cmdline-tools-#{macos? ? "mac" : "linux"}.tar.gz")
-    
     # install android platform tools
     install("platforms;android-35")
     # install ndk
@@ -35,9 +34,8 @@ class Hokusai::Native::Tasks::Android < Barista::Task
   def env
     {
       "ANDROID_HOME" => android_home,
-      "HOKUSAI_RUBY_HOME" => "#{config.directory}/truffleruby",
-      "JAVA_HOME" => macos? ? "#{config.directory}/graalvm/Contents/Home" : "#{config.directory}/graalvm",
-      "GRAALVM_HOME" => macos? ? "#{config.directory}/graalvm/Contents/Home" : "#{config.directory}/graalvm"
+      "JAVA_HOME" => graalvm_base_path,
+      "GRAALVM_HOME" => graalvm_base_path
     }
   end
 end
