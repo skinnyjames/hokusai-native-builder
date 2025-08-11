@@ -5,25 +5,25 @@ on:
   workflow_dispatch
 jobs:
   native-image:
-    runs-on: ubuntu-22.04-arm
+    runs-on: ubuntu-22.04
     container:
       image: 84codes/crystal:latest-ubuntu-22.04
     steps:
     - uses: actions/checkout@v3
     - name: deps
-      run: apt update -y && apt install -y cmake wget clang
+      run: apt update -y && apt install -y patchelf cmake wget clang build-essential libasound2-dev libx11-dev libxrandr-dev libxi-dev libgl1-mesa-dev libglu1-mesa-dev libxcursor-dev libxinerama-dev libwayland-dev libxkbcommon-dev
     - name: create builder
       run: shards install && shards build
     - name: setup
       run: LOG_LEVEL=debug ./bin/hokusai-native-builder setup --workers 4
     - name: gem-install
-      run: LOG_LEVEL=debug ./bin/hokusai-native-builder gem -- "install hokusai-zero -v 0.2.6.pre.android"
+      run: LOG_LEVEL=debug ./bin/hokusai-native-builder gem -- "install hokusai-zero"
     - name: native-build
       run: LOG_LEVEL=debug ./bin/hokusai-native-builder native-image 
     - uses: actions/upload-artifact@v4
       with:
         name: native-build
-        path: hokusai-native-build/package.tar.gz
+        path: hokusai-native-build/hokusai-native.tar.gz
         overwrite: true
 
 

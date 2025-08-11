@@ -7,49 +7,9 @@ module Hokusai
     module Task
       getter :config
 
-      # def android_home
-      #   # "/Users/skinnyjames/Library/Android/sdk"
-      #   "#{config.directory}/android-sdk"
-      # end
-
       def graalvm_base_path
          macos? ? "#{config.directory}/graalvm/Contents/Home" : "#{config.directory}/graalvm"
       end
-
-      # def ndk_path
-      #   os = macos? ? "darwin" : "linux"
-      #   # android doesn't release ndk builds for arm...
-      #   ar = "x86_64" #arm? ? "aarch64" : "x86_64"
-      #   "#{android_home}/ndk/#{ndk_version}/toolchains/llvm/prebuilt/#{os}-#{ar}"
-      # end
-
-      # def clang
-      #   "#{ndk_path}/bin/clang"
-      # end
-
-      # def ensure_clang_script
-      #   os = macos? ? "darwin" : "linux"
-      #   ar = "x86_64" #arm? ? "aarch64" : "x86_64"
-      #   str = <<-EOF
-      #   #!/usr/bin/env sh
-
-      #   #{clang} --target=aarch64-linux-android35 -I#{android_home}/ndk/#{ndk_version}/toolchains/llvm/prebuilt/#{os}-#{ar}/sysroot/usr/include "$@"
-      #   EOF
-
-      #   mkdir("#{config.directory}/bin", parents: true)
-
-      #   block do
-      #     File.write("#{config.directory}/bin/clang", str)
-      #   end
-
-      #   block do
-      #     File.write("#{config.directory}/bin/gcc", str)
-      #   end
-
-      #   command("chmod 755 #{config.directory}/bin/clang")
-      #   command("chmod 755 #{config.directory}/bin/gcc")
-      # end
-
 
       def ndk_version
         "29.0.13113456"
