@@ -24,11 +24,11 @@ class Hokusai::Native::Tasks::NativeImage < Barista::Task
     command("cp -rf #{config.directory}/project/include/*  #{native_compile_dir}")
     # compile c backend
     if macos?
-      command("gcc -lhokusai-native hashmap.c #{config.directory}/raylib/libraylib.a hokusai-backend.c -L. -I. -framework CoreVideo -framework IOKit -framework Cocoa -framework GLUT -framework OpenGL -o hokusai-backend", chdir: native_compile_dir, env: env)
+      command("gcc -lhokusai-native hashmap.c #{config.directory}/raylib/libraylib.a hokusai-backend.c -L. -L#{config.directory}/raylib/src -I#{config.directory}/raylib/src -I. -framework CoreVideo -framework IOKit -framework Cocoa -framework GLUT -framework OpenGL -o hokusai-backend", chdir: native_compile_dir, env: env)
       command("install_name_tool -change #{native_compile_dir}/libhokusai-native.dylib libhokusai-native.dylib hokusai-backend", chdir: native_compile_dir)
     else
       command("patchelf --set-soname libhokusai-native.so #{native_compile_dir}/libhokusai-native.so")
-      command("gcc -lhokusai-native hashmap.c #{config.directory}/raylib/libraylib.a hokusai-backend.c -L. -I. -o hokusai-backend", chdir: native_compile_dir, env: env)
+      command("gcc  -L. -L#{config.directory}/raylib/src -I#{config.directory}/raylib/src -I. -o hokusai-backend hokusai-backend.c hashmap.c #{config.directory}/raylib/libraylib.a -lhokusai-native -lGL -lm -lpthread -ldl -lrt -lX11", chdir: native_compile_dir, env: env)
     end
 
     # prepare for packaging
@@ -42,7 +42,7 @@ class Hokusai::Native::Tasks::NativeImage < Barista::Task
     # sync truffle installation
     sync("#{config.directory}/truffleruby", "#{native_compile_dir}/build/truffle")
     # # package contents
-    command("tar -czvf #{config.directory}/hokuasi-native.tar.gz -C #{native_compile_dir}/build --strip-components 1 .")
+    command("tar -czvf #{config.directory}/hokusai-native.tar.gz -C #{native_compile_dir}/build --strip-components 1 .")
   end
 
   def native_compile_dir

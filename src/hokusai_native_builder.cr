@@ -22,7 +22,7 @@ module Hokusai
         when "x64"
           false
         else
-          true
+          false
         end
       end
 
